@@ -7,8 +7,25 @@ RUN apt-get update && \
 
 RUN echo "%sudo  ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers && \
     apt-get install -y gosu; \
-	  rm -rf /var/lib/apt/lists/*; 
+	  rm -rf /var/lib/apt/lists/*;
 
-ADD entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O /opt/miniconda.sh; \
+    bash /opt/miniconda.sh -b -p /opt/miniconda; \
+    rm /opt/miniconda.sh; \
+    chgrp -R sudo /opt/miniconda; \
+    chmod 770 -R /opt/miniconda
 
-ENTRYPOINT /bin/bash /usr/local/bin/entrypoint.sh
+RUN apt-get update && apt-get install -y ssh
+
+RUN chmod 777 -R /opt/miniconda
+
+COPY S1_GraphTemplate.xml /tmp/template/S1_GraphTemplate.xml
+COPY snap_internal.py /tmp/scripts/snap_internal.py
+COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
+# COPY inner_snap.py /usr/local/bin/inner_snap.py
+
+# ENTRYPOINT /usr/local/bin/entrypoint.sh
+# CMD /bin/bash /usr/local/bin/entrypoint.sh

@@ -1,3 +1,4 @@
+#!/bin/python
 import os
 import argparse
 import xml.etree.ElementTree as ET
@@ -44,6 +45,8 @@ if __name__ == "__main__":
     dim_folder = '/data/sentinel_data/sentinel1/sigma0/'
     xml_template = ('/data/sentinel_data/auxdata/templates/'
                     + 'S1_GraphTemplate.xml')
+
+    xml_template = '/tmp/template/S1_GraphTemplate.xml'
     xml_output = "/data/sentinel_data/auxdata/templates/S1_Graph.xml"
 
     fillgraph(input_grd, dim_folder, xml_template, xml_output)

@@ -16,8 +16,7 @@ if [ ! -z ${HOST_UID} ]; then
 
 fi
 
-echo "export PATH=$PATH:/usr/local/snap/bin" >> /home/$USERNAME/.bashrc
+echo 'export PATH=$PATH:/usr/local/snap/bin' >> /home/$USERNAME/.bashrc
+echo 'export PATH=$PATH:/opt/miniconda/bin' >> /home/$USERNAME/.bashrc
 
-su $USERNAME
-
-echo yo
+gosu $USERNAME:$GROUPNAME "$@"
