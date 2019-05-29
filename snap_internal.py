@@ -48,5 +48,5 @@ if __name__ == "__main__":
     fillgraph(input_grd, dim_folder, xml_template, xml_output)
 
     cmd = f"gpt {xml_output}"
-    # subprocess(cmd, shell=True)
+    subprocess(cmd, shell=True)
     print(cmd)
