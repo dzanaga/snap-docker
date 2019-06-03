@@ -47,6 +47,6 @@ if __name__ == "__main__":
     print("Building gpt graph...")
     fillgraph(input_grd, dim_folder, xml_template, xml_output)
 
-    cmd = f"gpt {xml_output}"
-    subprocess.call(cmd, shell=True)
+    cmd = f"sudo /usr/local/snap/bin/gpt {xml_output}"
     print(cmd)
+    subprocess.call(cmd, shell=True)

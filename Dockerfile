@@ -20,6 +20,7 @@ COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 
 RUN chmod +x /usr/local/bin/entrypoint.sh
 
+
 # COPY inner_snap.py /usr/local/bin/inner_snap.py
 
 # ENTRYPOINT /usr/local/bin/entrypoint.sh
