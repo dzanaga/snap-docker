@@ -14,14 +14,13 @@ RUN apt-get update; \
     chgrp -R sudo /opt/miniconda; \
     chmod 777 -R /opt/miniconda
 
-COPY S1_GraphTemplate.xml /tmp/template/S1_GraphTemplate.xml
-COPY snap_internal.py /tmp/scripts/snap_internal.py
-COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+# set gpt max memory to 4GB
+# RUN sed -i -e 's/-Xmx1G/-Xmx4G/g' /usr/local/snap/bin/gpt.vmoptions
 
-RUN chmod +x /usr/local/bin/entrypoint.sh
-
-
-# COPY inner_snap.py /usr/local/bin/inner_snap.py
-
-# ENTRYPOINT /usr/local/bin/entrypoint.sh
-# CMD /bin/bash /usr/local/bin/entrypoint.sh
+# COPY graph_template.xml /tmp/template/
+# COPY snap_internal.py /tmp/scripts/snap_internal.py
+# COPY entrypoint.sh /tmp/scripts/entrypoint.sh
+#
+# RUN chmod +x /tmp/scripts/entrypoint.sh
+#
+# ENTRYPOINT /tmp/scripts/entrypoint.sh

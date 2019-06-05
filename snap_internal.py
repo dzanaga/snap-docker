@@ -40,13 +40,17 @@ if __name__ == "__main__":
 
     args = _parse_args()
     input_grd = args.input
-    dim_folder = args.outputdir
+    outputdir = args.outputdir
     xml_template = '/tmp/template/S1_GraphTemplate.xml'
     xml_output = "/tmp/template/S1_Graph.xml"
 
     print("Building gpt graph...")
-    fillgraph(input_grd, dim_folder, xml_template, xml_output)
+    fillgraph(input_grd, outputdir, xml_template, xml_output)
 
-    cmd = f"sudo /usr/local/snap/bin/gpt {xml_output}"
+    cmd = f"/usr/local/snap/bin/gpt {xml_output}"
+    print(cmd)
+    subprocess.call(cmd, shell=True)
+
+    cmd = f"chown -R ubuntu:ubuntu outputdir"
     print(cmd)
     subprocess.call(cmd, shell=True)

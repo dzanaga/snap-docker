@@ -2,18 +2,18 @@
   <version>1.0</version>
   <node id="Read">
     <operator>Read</operator>
-    <sources />
+    <sources/>
     <parameters class="com.bc.ceres.binding.dom.XppDomElement">
-      <file>/data/mep_uturn/S1/GRD/S1A_IW_GRDH_1SDV_20180329T190050_20180329T190115_021234_024845_5423.zip</file>
+      <file>/data/mep_uturn/S1/GRD/S1A_IW_GRDH_1SDV_20161003T191658_20161003T191727_013330_015403_55AE.zip</file>
     </parameters>
   </node>
   <node id="Apply-Orbit-File">
     <operator>Apply-Orbit-File</operator>
     <sources>
-      <sourceProduct refid="Read" />
+      <sourceProduct refid="Read"/>
     </sources>
     <parameters class="com.bc.ceres.binding.dom.XppDomElement">
-      <orbitType>Sentinel Restituted (Auto Download)</orbitType>
+      <orbitType>Sentinel Precise (Auto Download)</orbitType>
       <polyDegree>3</polyDegree>
       <continueOnFail>false</continueOnFail>
     </parameters>
@@ -21,10 +21,10 @@
   <node id="Remove-GRD-Border-Noise">
     <operator>Remove-GRD-Border-Noise</operator>
     <sources>
-      <sourceProduct refid="Apply-Orbit-File" />
+      <sourceProduct refid="Apply-Orbit-File"/>
     </sources>
     <parameters class="com.bc.ceres.binding.dom.XppDomElement">
-      <selectedPolarisations />
+      <selectedPolarisations/>
       <borderLimit>500</borderLimit>
       <trimThreshold>0.5</trimThreshold>
     </parameters>
@@ -32,17 +32,17 @@
   <node id="Calibration">
     <operator>Calibration</operator>
     <sources>
-      <sourceProduct refid="ThermalNoiseRemoval" />
+      <sourceProduct refid="ThermalNoiseRemoval"/>
     </sources>
     <parameters class="com.bc.ceres.binding.dom.XppDomElement">
-      <sourceBands />
+      <sourceBands/>
       <auxFile>Product Auxiliary File</auxFile>
-      <externalAuxFile />
+      <externalAuxFile/>
       <outputImageInComplex>false</outputImageInComplex>
       <outputImageScaleInDb>false</outputImageScaleInDb>
       <createGammaBand>false</createGammaBand>
       <createBetaBand>false</createBetaBand>
-      <selectedPolarisations />
+      <selectedPolarisations/>
       <outputSigmaBand>true</outputSigmaBand>
       <outputGammaBand>false</outputGammaBand>
       <outputBetaBand>false</outputBetaBand>
@@ -51,10 +51,10 @@
   <node id="ThermalNoiseRemoval">
     <operator>ThermalNoiseRemoval</operator>
     <sources>
-      <sourceProduct refid="Remove-GRD-Border-Noise" />
+      <sourceProduct refid="Remove-GRD-Border-Noise"/>
     </sources>
     <parameters class="com.bc.ceres.binding.dom.XppDomElement">
-      <selectedPolarisations />
+      <selectedPolarisations/>
       <removeThermalNoise>true</removeThermalNoise>
       <reIntroduceThermalNoise>false</reIntroduceThermalNoise>
     </parameters>
@@ -62,40 +62,35 @@
   <node id="Terrain-Correction">
     <operator>Terrain-Correction</operator>
     <sources>
-      <sourceProduct refid="Calibration" />
+      <sourceProduct refid="Calibration"/>
     </sources>
     <parameters class="com.bc.ceres.binding.dom.XppDomElement">
-      <sourceBands />
+      <sourceBands/>
       <demName>SRTM 1Sec HGT</demName>
-      <externalDEMFile />
+      <externalDEMFile/>
       <externalDEMNoDataValue>0.0</externalDEMNoDataValue>
       <externalDEMApplyEGM>true</externalDEMApplyEGM>
       <demResamplingMethod>BILINEAR_INTERPOLATION</demResamplingMethod>
       <imgResamplingMethod>BILINEAR_INTERPOLATION</imgResamplingMethod>
       <pixelSpacingInMeter>10.0</pixelSpacingInMeter>
       <pixelSpacingInDegree>8.983152841195215E-5</pixelSpacingInDegree>
-      <mapProjection>PROJCS["WGS 84 / UTM zone 28N",
-    GEOGCS["WGS 84",
-        DATUM["WGS_1984",
-            SPHEROID["WGS 84",6378137,298.257223563,
-                AUTHORITY["EPSG","7030"]],
-            AUTHORITY["EPSG","6326"]],
-        PRIMEM["Greenwich",0,
-            AUTHORITY["EPSG","8901"]],
-        UNIT["degree",0.01745329251994328,
-            AUTHORITY["EPSG","9122"]],
-        AUTHORITY["EPSG","4326"]],
-    UNIT["metre",1,
-        AUTHORITY["EPSG","9001"]],
-    PROJECTION["Transverse_Mercator"],
-    PARAMETER["latitude_of_origin",0],
-    PARAMETER["central_meridian",-15],
-    PARAMETER["scale_factor",0.9996],
-    PARAMETER["false_easting",500000],
-    PARAMETER["false_northing",0],
-    AUTHORITY["EPSG","32628"],
-    AXIS["Easting",EAST],
-    AXIS["Northing",NORTH]]</mapProjection>
+      <mapProjection>PROJCS[&quot;WGS 84 / Auto UTM&quot;,
+  GEOGCS[&quot;WGS84(DD)&quot;,
+    DATUM[&quot;WGS84&quot;,
+      SPHEROID[&quot;WGS84&quot;, 6378137.0, 298.257223563]],
+    PRIMEM[&quot;Greenwich&quot;, 0.0],
+    UNIT[&quot;degree&quot;, 0.017453292519943295],
+    AXIS[&quot;Geodetic longitude&quot;, EAST],
+    AXIS[&quot;Geodetic latitude&quot;, NORTH]],
+  PROJECTION[&quot;Transverse_Mercator&quot;],
+  PARAMETER[&quot;central_meridian&quot;, 3.0],
+  PARAMETER[&quot;latitude_of_origin&quot;, 0.0],
+  PARAMETER[&quot;scale_factor&quot;, 0.9996],
+  PARAMETER[&quot;false_easting&quot;, 500000.0],
+  PARAMETER[&quot;false_northing&quot;, 0.0],
+  UNIT[&quot;m&quot;, 1.0],
+  AXIS[&quot;Easting&quot;, EAST],
+  AXIS[&quot;Northing&quot;, NORTH]]</mapProjection>
       <alignToStandardGrid>false</alignToStandardGrid>
       <standardGridOriginX>0.0</standardGridOriginX>
       <standardGridOriginY>0.0</standardGridOriginY>
@@ -114,41 +109,41 @@
       <incidenceAngleForSigma0>Use projected local incidence angle from DEM</incidenceAngleForSigma0>
       <incidenceAngleForGamma0>Use projected local incidence angle from DEM</incidenceAngleForGamma0>
       <auxFile>Latest Auxiliary File</auxFile>
-      <externalAuxFile />
+      <externalAuxFile/>
     </parameters>
   </node>
   <node id="Write">
     <operator>Write</operator>
     <sources>
-      <sourceProduct refid="Terrain-Correction" />
+      <sourceProduct refid="Terrain-Correction"/>
     </sources>
     <parameters class="com.bc.ceres.binding.dom.XppDomElement">
-      <file>/data/sentinel_data/sentinel1/sigma0/S1A_IW_GRDH_1SDV_20180329T190050_20180329T190115_021234_024845_5423.dim</file>
+      <file>S:\01_DATA\Sentinel_1\validationTERRASCOPE\S1B_IW_GRDH_1SDV_20180928T055750_20180928T055815_012911_017D8A_AC79_Sigma0.dim</file>
       <formatName>BEAM-DIMAP</formatName>
     </parameters>
   </node>
   <applicationData id="Presentation">
-    <Description />
+    <Description/>
     <node id="Read">
-            <displayPosition x="1.0" y="136.0" />
+            <displayPosition x="1.0" y="136.0"/>
     </node>
     <node id="Apply-Orbit-File">
-            <displayPosition x="103.0" y="83.0" />
+            <displayPosition x="103.0" y="83.0"/>
     </node>
     <node id="Remove-GRD-Border-Noise">
-            <displayPosition x="112.0" y="173.0" />
+            <displayPosition x="112.0" y="173.0"/>
     </node>
     <node id="Calibration">
-            <displayPosition x="308.0" y="176.0" />
+            <displayPosition x="308.0" y="176.0"/>
     </node>
     <node id="ThermalNoiseRemoval">
-            <displayPosition x="232.0" y="86.0" />
+            <displayPosition x="232.0" y="86.0"/>
     </node>
     <node id="Terrain-Correction">
-            <displayPosition x="401.0" y="89.0" />
+            <displayPosition x="401.0" y="89.0"/>
     </node>
     <node id="Write">
-            <displayPosition x="507.0" y="179.0" />
+            <displayPosition x="507.0" y="179.0"/>
     </node>
   </applicationData>
 </graph>
